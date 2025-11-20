@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      postgres_user: airflow
+      postgres_password: airflow
+      postgres_db: airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+
