@@ -43,7 +43,7 @@ def main(params):
 
     # todo: remove url later
     os.makedirs('data', exist_ok=True)
-    os.system(f'wget -c -0 {"data"/filename} {url}') # different from video
+    os.system(f'wget -c -O {"data"/filename} {url}') # different from video
 
     data_file = f'data/{filename}'
     engine = create_engine('postgresql://{user}:{password}@{host}:{port}/{db}')
