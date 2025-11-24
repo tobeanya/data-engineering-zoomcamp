@@ -23,6 +23,8 @@ sudo setfacl -bR ny_taxi_postgres_data || true
 sudo chown -R $(id -u):$(id -g) ny_taxi_postgres_data
 rm -rf ny_taxi_postgres_data
 
+if folder is empty, run command
+sudo chmod a+rwx ny_taxi_postgres_data
 
 // access postgres db
 pgcli -h localhost -p 5432 -u root -d ny_taxi
@@ -65,3 +67,30 @@ docker run -it \
   --network=pg-network \
   --name pg-admin \
   dpage/pgadmin4
+
+  URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet" 
+
+  python ingest_data.py \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url=${URL}
+
+### build with docker instead
+  docker build -t taxi_ingest:v001 .
+
+  URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet" 
+
+  docker run -it \
+    --network=pg-network \
+  taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url=${URL}

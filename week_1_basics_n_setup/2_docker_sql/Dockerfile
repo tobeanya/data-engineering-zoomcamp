@@ -17,13 +17,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install --no-cache-dir \
     numpy \
     pandas \
-    sqlalchemy
+    pyarrow \
+    sqlalchemy \
+    psycopg2-binary \
+    psycopg2
+
+RUN apt-get update && apt-get install -y wget
 
 # Copy project files (if any)
-COPY pipeline.py pipeline.py
+COPY ingest_data.py ingest_data.py
 
 # Default to an interactive shell (override with docker run <image> <cmd>)
 CMD ["bash"]
 
 # Entry point to run a Python script when the container starts
-ENTRYPOINT ["python", "pipeline.py"]
+ENTRYPOINT ["python", "ingest_data.py"]

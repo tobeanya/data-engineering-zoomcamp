@@ -42,11 +42,10 @@ def main(params):
         filename = 'output.csv'
 
     # todo: remove url later
-    os.makedirs('data', exist_ok=True)
-    os.system(f'wget -c -O {"data"/filename} {url}') # different from video
+    os.system(f'wget -c -O {filename} {url}') # different from video
 
-    data_file = f'data/{filename}'
-    engine = create_engine('postgresql://{user}:{password}@{host}:{port}/{db}')
+    data_file = f'{filename}'
+    engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
     engine.connect()
     if boolean_csv:
         df = pd.read_csv(data_file)
@@ -56,8 +55,8 @@ def main(params):
         table = pq.read_table(data_file, use_pandas_metadata=True)
         df = table.to_pandas(timestamp_as_object=False)
         
-    df.head(n=0).to_sql(name='yellow_taxi_data', con=engine, if_exists='replace', index=False)
-    upload_data(df, table_name='yellow_taxi_data', engine=engine, chunk_size=CHUNK_SIZE)
+    df.head(n=0).to_sql(name=f'{table_name}', con=engine, if_exists='replace', index=False)
+    upload_data(df, table_name=f'{table_name}', engine=engine, chunk_size=CHUNK_SIZE)
 
 
 if __name__ == '__main__':
