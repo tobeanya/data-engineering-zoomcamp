@@ -1,0 +1,22 @@
+TRACE 2025-12-17T04:58:17.296769Z io.kestra.core.models.tasks.RunnableTaskException: io.kestra.core.models.tasks.runners.TaskException: Command failed with exit code 1
+	at io.kestra.plugin.scripts.exec.scripts.runners.CommandsWrapper.run(CommandsWrapper.java:203)
+	at io.kestra.plugin.scripts.python.Commands.run(Commands.java:341)
+	at io.kestra.plugin.scripts.python.Commands.run(Commands.java:29)
+	at io.kestra.worker.WorkerTaskCallable.doCall(WorkerTaskCallable.java:81)
+	at io.kestra.worker.AbstractWorkerCallable.call(AbstractWorkerCallable.java:64)
+	at io.kestra.worker.WorkerSecurityService.callInSecurityContext(WorkerSecurityService.java:10)
+	at io.kestra.worker.DefaultWorker.lambda$callJob$19(DefaultWorker.java:980)
+	at io.kestra.core.trace.NoopTracer.inCurrentContext(NoopTracer.java:15)
+	at io.kestra.worker.DefaultWorker.callJob(DefaultWorker.java:976)
+	at io.kestra.worker.DefaultWorker.runAttempt(DefaultWorker.java:934)
+	at io.kestra.worker.DefaultWorker.run(DefaultWorker.java:728)
+	at io.kestra.worker.DefaultWorker.handleTask(DefaultWorker.java:379)
+	at io.kestra.worker.DefaultWorker.lambda$run$8(DefaultWorker.java:294)
+	at io.micrometer.core.instrument.internal.TimedRunnable.run(TimedRunnable.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: io.kestra.core.models.tasks.runners.TaskException: Command failed with exit code 1
+	at io.kestra.plugin.core.runner.Process.run(Process.java:161)
+	at io.kestra.plugin.scripts.exec.scripts.runners.CommandsWrapper.run(CommandsWrapper.java:183)
+	... 16 more

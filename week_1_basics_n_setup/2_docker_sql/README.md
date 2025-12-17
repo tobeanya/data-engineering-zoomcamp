@@ -7,7 +7,7 @@ docker run -it \
   postgres:13
 
 # check with docker process is runnning
-docker ps
+docker ps -a
 
 
 to remove folder by docker process:
@@ -32,6 +32,9 @@ pgcli -h localhost -p 5432 -u root -d ny_taxi
 mkdir -p data
 wget -c -O data/yellow_tripdata_2025-01.parquet "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet"
 
+taxi-zone look up
+"https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+
 yellow trip dictionary
 https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf
 
@@ -45,6 +48,8 @@ docker run -it \
   -p 8080:80 \
   dpage/pgadmin4
 
+  # remove all docker containers
+  docker ps -aq | xargs -r docker rm -f
 
   # run docker postgres and pgadmin with network
 
