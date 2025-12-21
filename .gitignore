@@ -1,0 +1,11 @@
+# .gitignore
+# Ignore files where sensitive information might be stored
+secrets.env
+credentials.json
+api_keys.txt
+config/local_settings.py
+# Ignore virtual environment directories
+venv/
+.env/
+.venv/
+venv.md
